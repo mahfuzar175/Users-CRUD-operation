@@ -1,7 +1,9 @@
+import Login from "../Login/Login";
+
 const Home = () => {
     return (
         <div>
-            <h2>This home</h2>
+            <Login></Login>
         </div>
     );
 };
