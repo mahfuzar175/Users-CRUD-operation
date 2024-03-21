@@ -1,16 +1,30 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
 
-  const handleRegister = e =>{
+  const handleRegister = (e) => {
     e.preventDefault();
     console.log(e.currentTarget);
     const form = new FormData(e.currentTarget);
-    const name = form.get('name');
-    const email = form.get('email');
-    const password = form.get('password')
+    const name = form.get("name");
+    const email = form.get("email");
+    const password = form.get("password");
     console.log(name, email, password);
-  }
+
+    // create user
+    createUser(email, password)
+    .then(reuslt =>{
+      console.log(reuslt.user);
+    })
+    .catch(error =>{
+      console.log(error);
+    })
+  };
+
+
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
