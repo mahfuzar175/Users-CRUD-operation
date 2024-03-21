@@ -1,18 +1,28 @@
 import { Link } from "react-router-dom";
 
 const Register = () => {
+
+  const handleRegister = e =>{
+    e.preventDefault();
+    console.log(e.currentTarget);
+    const form = new FormData(e.currentTarget);
+    const name = form.get('name');
+    const email = form.get('email');
+    const password = form.get('password')
+    console.log(name, email, password);
+  }
   return (
     <div className="flex items-center justify-center h-screen">
-            <div className="relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
+      <div className="relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
         <div className="w-full">
           <div className="text-center">
-            <h1 className="text-3xl font-semibold text-gray-900">Create a new account</h1>
-            <p className="mt-2 text-gray-500">
-            Or login to your account
-            </p>
+            <h1 className="text-3xl font-semibold text-gray-900">
+              Create a new account
+            </h1>
+            <p className="mt-2 text-gray-500">Or login to your account</p>
           </div>
           <div className="mt-5">
-            <form action="">
+            <form onSubmit={handleRegister} action="">
               <div className="relative mt-6">
                 <input
                   type="text"
@@ -63,14 +73,17 @@ const Register = () => {
               <div className="my-6">
                 <button
                   type="submit"
-                  className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none"
+                  className="w-full rounded-md bg-black px-3 py-4 text-white hover:bg-gray-600 focus:outline-none"
                 >
                   Register
                 </button>
               </div>
               <p className="text-center text-sm text-gray-500">
                 Already have an account!
-                <Link to='/login' className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none ml-1">
+                <Link
+                  to="/"
+                  className="font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none ml-1"
+                >
                   Login
                 </Link>
                 .
@@ -79,7 +92,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-        </div>
+    </div>
   );
 };
 
