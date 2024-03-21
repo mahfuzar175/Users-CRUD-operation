@@ -1,29 +1,44 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/home";
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget);
     const form = new FormData(e.currentTarget);
     const name = form.get("name");
     const email = form.get("email");
     const password = form.get("password");
-    console.log(name, email, password);
 
-    // create user
+    // Create user
     createUser(email, password)
-    .then(reuslt =>{
-      console.log(reuslt.user);
-    })
-    .catch(error =>{
-      console.log(error);
-    })
+      .then((result) => {
+        // After successful user creation, add user details to the database
+        fetch("https://users-crud-operation-server-side.vercel.app/AllUsers", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email }),
+        })
+          .then((result) => {
+            console.log(result.user);
+            navigate(from, { replace: true });
+          })
+          .catch((error) => {
+            console.error("Error adding user:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Registration error:", error);
+      });
   };
-
 
   return (
     <div className="flex items-center justify-center h-screen">

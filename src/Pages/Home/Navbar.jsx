@@ -63,7 +63,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side" style={{ zIndex: 9999, position: 'fixed' }}>
           <label
             htmlFor="my-drawer-3"
             aria-label="close sidebar"
@@ -77,6 +77,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
+
     </div>
   );
 };
