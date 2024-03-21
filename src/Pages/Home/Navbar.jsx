@@ -1,4 +1,16 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
+
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handlerSignOut = () =>{
+    logOut()
+    .then()
+    .catch()
+  }
+
   return (
     <div>
       <div className="drawer">
@@ -27,17 +39,28 @@ const Navbar = () => {
                 </svg>
               </label>
             </div>
-            <div className="flex-1 px-2 mx-2 font-bold text-xl">ADMIN MANAGER</div>
+            <div className="flex-1 px-2 mx-2 font-bold text-xl">
+              ADMIN MANAGER
+            </div>
             <div className="flex-none hidden lg:block">
               <ul className="menu menu-horizontal font-semibold text-base">
                 {/* Navbar menu content here */}
                 <li>
                   <a>Users</a>
                 </li>
-                
               </ul>
             </div>
-            <button  className="font-semibold text-base btn border-red-600">Login</button>
+            {user ? (
+                <button onClick={handlerSignOut} className="font-semibold text-base btn border-gray-600 hover:text-white hover:bg-slate-900">
+                  Sign Out
+                </button>
+            ) : (
+              <Link to="/">
+                <button className="font-semibold text-base btn border-gray-600 hover:text-white hover:bg-slate-900">
+                  Login
+                </button>
+              </Link>
+            )}
           </div>
         </div>
         <div className="drawer-side">
@@ -51,7 +74,6 @@ const Navbar = () => {
             <li>
               <a>Users</a>
             </li>
-            
           </ul>
         </div>
       </div>
